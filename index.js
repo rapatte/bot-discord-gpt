@@ -52,13 +52,8 @@ client.on('messageCreate', async (message) => {
                 messages: conversationLog,
             });
 
-        // const chatbotReply = result.data.choices[0].message.content;
-        // const truncatedReply = chatbotReply.substring(0, 1999); // Limite à 1999 caractères
-
-        // message.reply(truncatedReply);
         const chatbotReply = result.data.choices[0].message.content;
 
-        // Envoyer la réponse en plusieurs messages si elle dépasse 2000 caractères
         if (chatbotReply.length <= 2000) {
             message.reply(chatbotReply);
         } else {
@@ -69,12 +64,14 @@ client.on('messageCreate', async (message) => {
         }
         } catch (error) {
             console.error(error);
-            message.channel.send('Ça va trop vite pour moi, enculé.');
+            message.channel.send('Ça va trop vite pour moi.');
         }
 })
 
 client.login(process.env.TOKEN);
 
+
+// Envoyer la réponse en plusieurs messages si elle dépasse 2000 caractères
 function splitIntoChunks(text, chunkSize) {
     const chunks = [];
     for (let i = 0; i < text.length; i += chunkSize) {
